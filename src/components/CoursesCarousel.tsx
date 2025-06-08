@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Box,
   Container,
@@ -93,6 +93,16 @@ const CoursesCarousel: React.FC = () => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [currentIndex, setCurrentIndex] = useState(0);
 
+  useEffect(() => {
+    if (isMobile) {
+      const interval = setInterval(() => {
+        setCurrentIndex((prev) => (prev === courses.length - 1 ? 0 : prev + 1));
+      }, 5000);
+
+      return () => clearInterval(interval);
+    }
+  }, [isMobile]);
+
   const handlePrevious = () => {
     setCurrentIndex((prev) => (prev === 0 ? courses.length - 1 : prev - 1));
   };
@@ -127,49 +137,69 @@ const CoursesCarousel: React.FC = () => {
         </Typography>
 
         <Box sx={{ position: 'relative', maxWidth: '100%', mx: 'auto' }}>
-          {isMobile && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', mb: 3, gap: 2 }}>
-              <IconButton
-                onClick={handlePrevious}
-                sx={{
-                  bgcolor: 'background.paper',
-                  boxShadow: 2,
-                  '&:hover': {
-                    bgcolor: 'background.paper',
-                    boxShadow: 4,
-                  },
-                }}
-              >
-                <ChevronLeft />
-              </IconButton>
-              <IconButton
-                onClick={handleNext}
-                sx={{
-                  bgcolor: 'background.paper',
-                  boxShadow: 2,
-                  '&:hover': {
-                    bgcolor: 'background.paper',
-                    boxShadow: 4,
-                  },
-                }}
-              >
-                <ChevronRight />
-              </IconButton>
-            </Box>
-          )}
-
           {isMobile ? (
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={currentIndex}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -20 }}
-                transition={{ duration: 0.3 }}
-              >
-                <CourseCard course={courses[currentIndex]} />
-              </motion.div>
-            </AnimatePresence>
+            <>
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={currentIndex}
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  transition={{ duration: 0.3 }}
+                >
+                  <CourseCard course={courses[currentIndex]} />
+                </motion.div>
+              </AnimatePresence>
+
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 2 }}>
+                {courses.map((_, index) => (
+                  <Box
+                    key={index}
+                    onClick={() => setCurrentIndex(index)}
+                    sx={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: '50%',
+                      bgcolor: index === currentIndex ? 'primary.main' : 'action.disabled',
+                      cursor: 'pointer',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        bgcolor: 'primary.main',
+                      },
+                    }}
+                  />
+                ))}
+              </Box>
+
+              <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, gap: 2 }}>
+                <IconButton
+                  onClick={handlePrevious}
+                  sx={{
+                    bgcolor: 'background.paper',
+                    boxShadow: 2,
+                    '&:hover': {
+                      bgcolor: 'background.paper',
+                      boxShadow: 4,
+                    },
+                  }}
+                >
+                  <ChevronLeft />
+                </IconButton>
+                <IconButton
+                  onClick={handleNext}
+                  sx={{
+                    bgcolor: 'background.paper',
+                    boxShadow: 2,
+                    '&:hover': {
+                      bgcolor: 'background.paper',
+                      boxShadow: 4,
+                    },
+                  }}
+                >
+                  <ChevronRight />
+                </IconButton>
+              </Box>
+            </>
           ) : (
             <Box sx={{ display: 'grid', gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(3, 1fr)' }, gap: 4 }}>
               {courses.map((course, index) => (
@@ -181,28 +211,6 @@ const CoursesCarousel: React.FC = () => {
                 >
                   <CourseCard course={course} />
                 </motion.div>
-              ))}
-            </Box>
-          )}
-
-          {isMobile && (
-            <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4, gap: 2 }}>
-              {courses.map((_, index) => (
-                <Box
-                  key={index}
-                  onClick={() => setCurrentIndex(index)}
-                  sx={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: '50%',
-                    bgcolor: index === currentIndex ? 'primary.main' : 'action.disabled',
-                    cursor: 'pointer',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      bgcolor: 'primary.main',
-                    },
-                  }}
-                />
               ))}
             </Box>
           )}

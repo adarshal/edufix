@@ -98,8 +98,8 @@ const MetricsSection: React.FC = () => {
   return (
     <Box
       sx={{
-        py: { xs: 8, md: 12 },
-        px: { xs: 2, md: 4 },
+        py: { xs: 6, md: 12 },
+        px: { xs: 1, md: 4 },
         background: theme.palette.mode === 'light'
           ? 'linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%)'
           : 'linear-gradient(135deg, #1A237E 0%, #0D47A1 100%)',
@@ -137,7 +137,12 @@ const MetricsSection: React.FC = () => {
       </Box>
 
       <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-        <Box sx={{ display: 'grid', gridTemplateColumns: { xs: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, gap: 4 }}>
+        <Box sx={{ 
+          display: 'grid', 
+          gridTemplateColumns: { xs: '1fr', sm: 'repeat(2, 1fr)', md: 'repeat(4, 1fr)' }, 
+          gap: { xs: 2, md: 4 },
+          px: { xs: 1, sm: 2 }
+        }}>
           {metrics.map((metric) => (
             <motion.div
               key={metric.label}
@@ -152,7 +157,7 @@ const MetricsSection: React.FC = () => {
                   flexDirection: 'column',
                   alignItems: 'center',
                   textAlign: 'center',
-                  p: 3,
+                  p: { xs: 2, md: 3 },
                   borderRadius: 4,
                   background: theme.palette.mode === 'light'
                     ? 'rgba(255,255,255,0.9)'

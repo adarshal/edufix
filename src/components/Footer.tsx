@@ -103,14 +103,14 @@ const Footer: React.FC = () => {
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <PhoneIcon color="primary" />
-                <Link href="tel:+911234567890" color="inherit" underline="hover">
-                  +91 12345 67890
+                <Link href="tel:+919588261726" color="inherit" underline="hover">
+                  +91 95882 61726
                 </Link>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <EmailIcon color="primary" />
-                <Link href="mailto:info@edufix.com" color="inherit" underline="hover">
-                  info@edufix.com
+                <Link href="mailto:abhishekdoyal2010@gmail.com" color="inherit" underline="hover">
+                  abhishekdoyal2010@gmail.com
                 </Link>
               </Box>
             </Box>
