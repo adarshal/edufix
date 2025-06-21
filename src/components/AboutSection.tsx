@@ -11,6 +11,7 @@ import {
 import type { GridProps } from "@mui/material/Grid";
 import {
   FaChalkboardTeacher,
+  FaPencilRuler,
   FaRegLightbulb,
   FaUserGraduate,
 } from "react-icons/fa";
@@ -35,6 +36,12 @@ const features = [
     icon: FaRegLightbulb,
     title: "Expert Faculty",
     desc: "Learn from experienced educators and IIT alumni.",
+    color: "#ed6c02",
+  },
+  {
+    icon: FaPencilRuler,
+    title: "Test Series",
+    desc: "Mock Tests Series with performance feedback.",
     color: "#ed6c02",
   },
 ];
@@ -143,8 +150,8 @@ const AboutSection: React.FC = () => {
                 >
                   <Box
                     sx={{
-                      width: 64,
-                      height: 64,
+                      width: 80,
+                      height: 80,
                       borderRadius: "50%",
                       display: "flex",
                       alignItems: "center",

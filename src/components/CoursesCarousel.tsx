@@ -16,6 +16,7 @@ import {
 import { FaBookOpen, FaRocket, FaTrophy, FaGraduationCap, FaGlobe, FaUniversity } from "react-icons/fa";
 import { ChevronLeft, ChevronRight } from "@mui/icons-material";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from 'react-router-dom';
 
 const courses = [
   {
@@ -23,36 +24,42 @@ const courses = [
     title: "Foundation (8–10)",
     desc: "Build strong basics for future success.",
     color: "#1976d2",
+    route: "/courses/foundation"
   },
   {
     icon: FaRocket,
     title: "JEE Main",
     desc: "Crack JEE Main with expert guidance.",
     color: "#2e7d32",
+    route: "/courses/jee"
   },
   {
     icon: FaTrophy,
     title: "JEE Advanced",
     desc: "Excel in JEE Advanced with our proven methods.",
     color: "#ed6c02",
+    route: "/courses/jee"
   },
   {
     icon: FaGraduationCap,
     title: "IGCSE",
     desc: "Comprehensive preparation for IGCSE curriculum.",
     color: "#9c27b0",
+    route: "/courses/igcse"
   },
   {
     icon: FaGlobe,
     title: "IBDP",
     desc: "Expert guidance for International Baccalaureate.",
     color: "#0288d1",
+    route: "/courses/ibdp"
   },
   {
     icon: FaUniversity,
     title: "A/AS Level",
     desc: "Specialized coaching for A/AS Level examinations.",
     color: "#d32f2f",
+    route: "/courses/alevel"
   },
 ];
 
@@ -226,6 +233,7 @@ const CourseCard: React.FC<{ course: typeof courses[0] }> = ({ course }) => {
   return (
     <Card
       sx={{
+        borderRadius:'5%',
         width: { xs: '100%', sm: 300 },
         height: '100%',
         display: 'flex',
@@ -259,7 +267,7 @@ const CourseCard: React.FC<{ course: typeof courses[0] }> = ({ course }) => {
               width: '50%',
               height: '100%',
               background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
-              animation: 'glossy 3s infinite',
+              animation: 'glossy 2s infinite',
               '@keyframes glossy': {
                 '0%': {
                   left: '-100%',
@@ -300,38 +308,38 @@ const CourseCard: React.FC<{ course: typeof courses[0] }> = ({ course }) => {
         </Typography>
       </CardContent>
       <CardActions sx={{ justifyContent: 'center', pb: 3 }}>
-        {/* <GlossyButton>
+        <GlossyButton>
           <Button
+            component={Link}
+            to={course.route}
             variant="contained"
+            size="small"
             sx={{
-              px: 3,
-              py: 1.2,
+              px: 2,
+              py: 0.7,
               borderRadius: 99,
-              fontWeight: 700,
-              fontSize: '1rem',
+              fontWeight: 600,
+              fontSize: '0.95rem',
               color: '#fff',
               background: theme.palette.mode === 'light'
-                ? 'linear-gradient(90deg, #ff9800 0%, #ff6d00 100%)'
-                : 'linear-gradient(90deg, #ff9800 0%, #b26500 100%)',
-              boxShadow: theme.palette.mode === 'light'
-                ? '0 4px 16px 0 rgba(255,152,0,0.18), 0 1.5px 0.5px 0 #fff inset'
-                : '0 4px 16px 0 rgba(255,152,0,0.10), 0 1.5px 0.5px 0 #222 inset',
+                ? `linear-gradient(90deg, ${course.color} 0%, #333 100%)`
+                : `linear-gradient(90deg, ${course.color} 0%, #222 100%)`,
               letterSpacing: 0.5,
               transition: 'all 0.3s cubic-bezier(.4,2,.3,1)',
               '&:hover': {
                 transform: 'scale(1.07)',
                 boxShadow: theme.palette.mode === 'light'
-                  ? '0 8px 32px 0 rgba(255,152,0,0.28), 0 2px 1px 0 #fff inset'
-                  : '0 8px 32px 0 rgba(255,152,0,0.18), 0 2px 1px 0 #222 inset',
+                  ? '0 8px 32px 0 rgba(25,118,210,0.28), 0 2px 1px 0 #fff inset'
+                  : '0 8px 32px 0 rgba(25,118,210,0.18), 0 2px 1px 0 #222 inset',
                 background: theme.palette.mode === 'light'
-                  ? 'linear-gradient(90deg, #ff6d00 0%, #ff9800 100%)'
-                  : 'linear-gradient(90deg, #b26500 0%, #ff9800 100%)',
+                  ? `linear-gradient(90deg, #333 0%, ${course.color} 100%)`
+                  : `linear-gradient(90deg, #222 0%, ${course.color} 100%)`,
               },
             }}
           >
-            Learn More
+            See More
           </Button>
-        </GlossyButton> */}
+        </GlossyButton>
       </CardActions>
     </Card>
   );

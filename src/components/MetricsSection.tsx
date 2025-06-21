@@ -19,17 +19,10 @@ const metrics = [
   },
   {
     icon: FaGraduationCap,
-    value: 95,
-    label: "Success Rate",
-    suffix: "%",
+    value: 10,
+    label: "Years of Academic Excellence",
+    suffix: "+",
     color: "#2e7d32",
-  },
-  {
-    icon: FaStar,
-    value: 98,
-    label: "Student Satisfaction",
-    suffix: "%",
-    color: "#ed6c02",
   },
   {
     icon: FaBook,
@@ -37,6 +30,13 @@ const metrics = [
     label: "Courses",
     suffix: "+",
     color: "#9c27b0",
+  },
+  {
+    icon: FaStar,
+    value: 6,
+    label: "Workshops on Study Skills",
+    suffix: "+",
+    color: "#ed6c02",
   },
 ];
 

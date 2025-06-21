@@ -10,31 +10,76 @@ import {
   Chip,
 } from "@mui/material";
 import { motion, useAnimation, useMotionValue, useTransform, useSpring, useScroll } from "framer-motion";
+import Dialog from '@mui/material/Dialog';
+import DialogTitle from '@mui/material/DialogTitle';
+import DialogContent from '@mui/material/DialogContent';
+import DialogActions from '@mui/material/DialogActions';
+import Button from '@mui/material/Button';
 
 const successStories = [
   {
-    name: "Rahul Sharma",
-    achievement: "AIR 1 in JEE Advanced 2023",
-    story: "Started with basic concepts and through dedicated practice and guidance from Edufix mentors, achieved the top rank in JEE Advanced. The personalized study plan and regular doubt-clearing sessions were crucial to my success.",
-    photo: "https://randomuser.me/api/portraits/men/32.jpg",
-    course: "JEE Advanced",
+    name: "Aditya Gokhale",
+    achievement: "JEE Mains 99.84%ile, JEE Advanced AIR 1284 (2025)",
+    story: "I joined Edufix Career Academy for my JEE preparation. All the teachers supported and guided me at every step of my journey. My doubts were always resolved, and the concepts were explained clearly and thoroughly. I would like to thank my teachers and my parents for choosing Edufix.",
+    photo: "/Aditya_Gokhale.jpeg",
+    course: "JEE Main & Advanced",
+    year: "2025",
+  },
+  {
+    name: "Harshil Agarwal",
+    achievement: "JEE Advanced Rank 2224 (99.8%ile), IIT Bombay, ESADE",
+    story: "Studying Mathematics and Chemistry at Edufix played a pivotal role in my JEE preparation journey. Abhishek sir's and Vikas sir's deep subject knowledge and proper guidance helped me strengthen my fundamentals and develop the problem-solving mindset needed to crack JEE. I'll always be grateful for the clarity, discipline and confidence the learning environment at Edufix instilled in me.",
+    photo: "/Harshil_Agarwal.jpeg",
+    course: "JEE Main & Advanced",
+    year: "2022",
+  },
+  {
+    name: "Murtuza Shaikh",
+    achievement: "JEE Mains 99.1%ile, JEE Advanced AIR 9000, IIIT Gwalior",
+    story: "I joined Edufix Career Academy for Mathematics coaching for JEE 2023. The personalized guidance by Abhishek Sir helped me focus on weak areas, build strong problem-solving skills, and improve through mock test analysis. Grateful for the support and experience at Edufix!",
+    photo: "/murtuza_shaikh.jpeg",
+    course: "JEE Main & Advanced",
     year: "2023",
   },
   {
-    name: "Priya Patel",
-    achievement: "98% in CBSE Boards",
-    story: "Joined Edufix for board exam preparation and found the structured approach extremely helpful. The teachers' dedication and comprehensive study material helped me achieve my dream score.",
-    photo: "https://randomuser.me/api/portraits/women/44.jpg",
-    course: "CBSE Boards",
+    name: "Shlok Mulye",
+    achievement: "IIT Kharagpur, Masters at UIUC",
+    story: "I had studied with Edufix for my JEE preparation from 2018-20. I was always a little scared to give the JEE examination but this training gave me the confidence to attempt all kinds of problems in a conceptual way. They helped me navigate through various problems and strengthened my problem solving skills. Abhishek Sir approached teaching in a very calm manner and was very approachable and has played a huge role in where I am now.",
+    photo: "/Shlok_Mulye.jpeg",
+    course: "JEE Main & Advanced",
+    year: "2020",
+  },
+  {
+    name: "Sneharghya Ghosh",
+    achievement: "IIT Bombay, IIM Lucknow",
+    story: "After my JEE 2017 attempt, I decided to take a drop year, but I was filled with uncertainty and low confidence. Abhishek Sir was instrumental in motivating me to persevere and tackle even the toughest mathematics problems, encouraging me to spend hours understanding each concept instead of giving up. His guidance helped me rebuild my mathematical foundation from scratch and instilled a sense of consistency and discipline in my preparation from day one. Thanks to Abhishek Sir's support and teaching, I was able to crack JEE 2018 and secure admission to IIT Bombay with a strong score in mathematics.",
+    photo: "/Sneharghya_ghosh.jpeg",
+    course: "JEE Main & Advanced",
+    year: "2018",
+  },
+  {
+    name: "Kushal Trivedi",
+    achievement: "IIIT Gwalior, JEE Mains 98.98%ile (99% in Maths)",
+    story: "I joined Abhishek sir's classes for Maths (/Edufix) in 2022 (12th) for JEE Mains and Advanced. His guidance helped me to deepen and sharpen my understanding about Maths along with intensive practice, paper solving and doubt clearance as well. His personal attention to us added to the good experience as well.",
+    photo: "/Kushal_Trivedi.jpeg",
+    course: "JEE Main & Advanced",
     year: "2023",
   },
   {
-    name: "Arjun Mehta",
-    achievement: "AIR 15 in NEET",
-    story: "The biology and chemistry classes at Edufix were exceptional. The teachers' expertise and the regular mock tests helped me build confidence and perform my best in the exam.",
-    photo: "https://randomuser.me/api/portraits/men/75.jpg",
-    course: "NEET",
-    year: "2023",
+    name: "Daksh",
+    achievement: "IBDP Year 1, One World International School Singapore",
+    story: "Edufix Career Academy has played a significant role in shaping my academic journey. The tutors were not only highly knowledgeable in their subjects but also incredibly supportive throughout the entire process. Their guidance gave me the confidence to pursue my goals and achieve targets I once thought were out of reach.",
+    photo: "/Daksh.jpeg",
+    course: "IBDP",
+    year: "2026",
+  },
+  {
+    name: "Sanyam Bhansali",
+    achievement: "Consistently scored 7s in IBDP, Oberoi International School OGC",
+    story: "As an 11th grader going into 12th grade at Oberoi International School (OGC), pursuing the IB Diploma Programme, Edufix has played a major role in my academic success. With their expert guidance, I've consistently scored 7s in my subjects and topped my end-of-year exams. The teaching is concept-focused and incredibly effective—each topic is taught with clarity, supported by plenty of practice resources and help outside class whenever needed. My understanding has deepened, and my confidence has grown thanks to Edufix.",
+    photo: "/Sanyam_Bhansali.jpeg",
+    course: "IBDP",
+    year: "2025",
   },
 ];
 
@@ -60,6 +105,19 @@ const SuccessStories: React.FC = () => {
 
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+
+  // Modal state
+  const [open, setOpen] = React.useState(false);
+  const [selectedStory, setSelectedStory] = React.useState<any>(null);
+
+  const handleOpen = (story: any) => {
+    setSelectedStory(story);
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedStory(null);
+  };
 
   return (
     <Box
@@ -146,8 +204,7 @@ const SuccessStories: React.FC = () => {
             <FloatingCard key={story.name} index={index} theme={theme}>
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: -5 }}>
                 <motion.div
-                  whileHover={{ scale: 1.1, rotate: 5 }}
-                  transition={{ type: "spring", stiffness: 300 }}
+                  whileHover={{ scale: 1.1 }}
                 >
                   <Avatar
                     src={story.photo}
@@ -162,10 +219,9 @@ const SuccessStories: React.FC = () => {
                     }}
                   />
                 </motion.div>
-                <Box sx={{ display: 'flex', gap: 1, mb: 1 }}>
+                <Box sx={{ display: 'flex', gap: 1, mb: 1, alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
                   <motion.div
                     whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 400 }}
                   >
                     <Box
                       component="span"
@@ -230,25 +286,33 @@ const SuccessStories: React.FC = () => {
                 >
                   {story.achievement}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color="text.secondary"
-                  sx={{
-                    fontStyle: 'italic',
-                    lineHeight: 1.6,
-                    display: '-webkit-box',
-                    WebkitLineClamp: 4,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                  }}
+                <Button
+                  variant="outlined"
+                  size="small"
+                  sx={{ mt: 2, borderRadius: 99, fontWeight: 600 }}
+                  onClick={() => handleOpen(story)}
                 >
-                  "{story.story}"
-                </Typography>
+                  See what they say about Edufix
+                </Button>
               </CardContent>
             </FloatingCard>
           ))}
         </Box>
       </Container>
+      {/* Testimonial Modal */}
+      <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
+        <DialogTitle sx={{ fontWeight: 700 }}>{selectedStory?.name}'s Testimonial</DialogTitle>
+        <DialogContent>
+          <Typography variant="body1" sx={{ fontStyle: 'italic', lineHeight: 1.7 }}>
+            "{selectedStory?.story}"
+          </Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary" variant="contained" sx={{ borderRadius: 99 }}>
+            Close
+          </Button>
+        </DialogActions>
+      </Dialog>
     </Box>
   );
 };
@@ -259,8 +323,8 @@ const FloatingCard: React.FC<{ children: React.ReactNode; index: number; theme: 
   const x = useMotionValue(0);
   const y = useMotionValue(0);
 
-  const rotateX = useTransform(y, [-100, 100], [30, -30]);
-  const rotateY = useTransform(x, [-100, 100], [-30, 30]);
+  const rotateX = useTransform(y, [-1, 1], [3, -3]);
+  const rotateY = useTransform(x, [-1, 1], [-3, 3]);
 
   const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     const rect = event.currentTarget.getBoundingClientRect();
@@ -284,13 +348,11 @@ const FloatingCard: React.FC<{ children: React.ReactNode; index: number; theme: 
     <motion.div
       variants={floatAnim}
       animate={controls}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      onMouseMove={handleMouseMove}
       style={{
         zIndex: 1,
         perspective: 1000,
         transformStyle: "preserve-3d",
+        pointerEvents: 'none',
       }}
     >
       <motion.div
@@ -298,6 +360,7 @@ const FloatingCard: React.FC<{ children: React.ReactNode; index: number; theme: 
           rotateX,
           rotateY,
           transition: "transform 0.1s ease-out",
+          pointerEvents: 'auto',
         }}
       >
         <Card
@@ -334,7 +397,11 @@ const FloatingCard: React.FC<{ children: React.ReactNode; index: number; theme: 
             '&:hover::before': {
               opacity: 1,
             },
+            overflowX: 'hidden',
           }}
+          onMouseEnter={() => setIsHovered(true)}
+          onMouseLeave={() => setIsHovered(false)}
+          onMouseMove={handleMouseMove}
         >
           {children}
         </Card>

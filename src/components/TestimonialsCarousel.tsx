@@ -8,30 +8,46 @@ import {
   useTheme,
   useMediaQuery,
   Rating,
+  Button,
 } from "@mui/material";
 import { ChevronLeft, ChevronRight, FormatQuote } from "@mui/icons-material";
 import { motion, AnimatePresence, useAnimation } from "framer-motion";
+import Chip from '@mui/material/Chip';
 
 const testimonials = [
   {
-    name: "Sarah M.",
-    quote: "Edufix transformed my understanding of math. The teachers are incredibly supportive and the study material is comprehensive. I couldn't have achieved my JEE Main score without their guidance.",
-    score: "98% JEE Main",
-    photo: "https://randomuser.me/api/portraits/women/44.jpg",
+    name: "Aditya Gokhale",
+    quote: "All the teachers supported and guided me at every step of my journey. My doubts were always resolved, and the concepts were explained clearly and thoroughly. I would like to thank my teachers and my parents for choosing Edufix.",
+    score: "JEE Mains 99.84%ile, JEE Advanced AIR 1284 (2025)",
+    photo: "/Aditya_Gokhale.jpeg",
+    rating: 5,
+  },  
+  {
+    name: "Daksh",
+    quote: "The tutors were not only highly knowledgeable in their subjects but also incredibly supportive throughout the entire process. Their guidance gave me the confidence to pursue my goals and achieve targets I once thought were out of reach.",
+    score: "IBDP Year 1, One World International School Singapore",
+    photo: "/Daksh.jpeg",
     rating: 5,
   },
   {
-    name: "David L.",
-    quote: "The personalized learning plan was a game-changer. The faculty's dedication and the structured approach helped me secure a great rank in JEE Advanced. Thank you, Edufix!",
-    score: "AIR 123 JEE Advanced",
-    photo: "https://randomuser.me/api/portraits/men/32.jpg",
+    name: "Sanyam Bhansali",
+    quote: "With their expert guidance, I've consistently scored 7s in my subjects and topped my end-of-year exams. The teaching is concept-focused and incredibly effective—each topic is taught with clarity, supported by plenty of practice resources and help outside class whenever needed.",
+    score: "Consistently scored 7s in IBDP, Oberoi International School OGC",
+    photo: "/Sanyam_Bhansali.jpeg",
     rating: 5,
   },
   {
-    name: "Emily R.",
-    quote: "I improved my grades and gained confidence in my abilities. The small batch size ensures individual attention, and the doubt-clearing sessions are extremely helpful.",
-    score: "95% Boards",
-    photo: "https://randomuser.me/api/portraits/women/65.jpg",
+    name: "Aanya Jain",
+    quote: "Sir's way of teaching is very interactive and informative in a way that ensures understanding on every students end. Sir also makes sure to focus on question solving a lot while the theory is also explained well.",
+    score: "CBSE XII, R.N Podar School",
+    photo: "/aanya_jain.jpeg",
+    rating: 5,
+  },
+  {
+    name: "Sriyansh Saraf",
+    quote: "My experience was truly enriching! Every topic was explained with great clarity, making learning both fun and engaging. I now feel much more confident in my subjects, and my marks have improved significantly. I highly recommend it to anyone looking to strengthen their academic foundation!",
+    score: "Podar International School, Powai, CBSE",
+    photo: "/Shriyansh_saraf.jpeg",
     rating: 5,
   },
 ];
@@ -52,11 +68,16 @@ const TestimonialsCarousel: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const [index, setIndex] = useState(0);
+  const [expanded, setExpanded] = useState(false);
 
   useEffect(() => {
     const timer = setInterval(() => setIndex((i) => (i + 1) % testimonials.length), 5000);
     return () => clearInterval(timer);
   }, []);
+
+  useEffect(() => {
+    setExpanded(false);
+  }, [index]);
 
   const handlePrevious = () => {
     setIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1));
@@ -65,6 +86,8 @@ const TestimonialsCarousel: React.FC = () => {
   const handleNext = () => {
     setIndex((prev) => (prev === testimonials.length - 1 ? 0 : prev + 1));
   };
+
+  const isLong = (text: string) => text.length > 180;
 
   return (
     <Box
@@ -114,7 +137,7 @@ const TestimonialsCarousel: React.FC = () => {
           Testimonials
         </Typography>
 
-        <Box sx={{ position: 'relative', maxWidth: 800, mx: 'auto' }}>
+        <Box sx={{ position: 'relative', maxWidth: 800, mx: 'auto', overflowX: 'hidden' }}>
           <IconButton
             onClick={handlePrevious}
             sx={{
@@ -198,14 +221,41 @@ const TestimonialsCarousel: React.FC = () => {
                       mb: 2,
                       color: theme.palette.text.secondary,
                       lineHeight: 1.6,
-                      display: '-webkit-box',
-                      WebkitLineClamp: 4,
-                      WebkitBoxOrient: 'vertical',
-                      overflow: 'hidden',
+                      wordBreak: 'break-word',
+                      whiteSpace: 'pre-line',
+                      transition: 'all 0.2s',
+                      overflowX: 'hidden',
+                      display: 'block',
+                      maxWidth: '100%',
                     }}
                   >
-                    "{testimonials[index].quote}"
+                    {isLong(testimonials[index].quote) && !expanded
+                      ? testimonials[index].quote.slice(0, 180) + '...'
+                      : testimonials[index].quote}
                   </Typography>
+                  {isLong(testimonials[index].quote) && (
+                    <Button
+                      size="small"
+                      onClick={() => setExpanded((prev) => !prev)}
+                      sx={{
+                        mb: 1,
+                        fontWeight: 600,
+                        borderRadius: 99,
+                        textTransform: 'none',
+                        color: theme.palette.primary.main,
+                        background: theme.palette.mode === 'light'
+                          ? 'rgba(255, 235, 205, 0.5)'
+                          : 'rgba(255, 235, 205, 0.12)',
+                        '&:hover': {
+                          background: theme.palette.mode === 'light'
+                            ? 'rgba(255, 235, 205, 0.8)'
+                            : 'rgba(255, 235, 205, 0.22)',
+                        },
+                      }}
+                    >
+                      {expanded ? 'Show less' : 'Show more'}
+                    </Button>
+                  )}
                   <Typography
                     variant="h6"
                     sx={{
@@ -217,22 +267,33 @@ const TestimonialsCarousel: React.FC = () => {
                     {testimonials[index].name}
                   </Typography>
                   <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0.5 }}>
-                    <Typography
-                      variant="caption"
+                    <Box
                       sx={{
-                        color: theme.palette.mode === 'light' ? theme.palette.secondary.dark : theme.palette.secondary.light,
+                        display: 'inline-block',
                         fontWeight: 700,
                         letterSpacing: 1,
-                        px: 1.5,
+                        px: 2,
                         py: 0.5,
                         borderRadius: 2,
-                        bgcolor: theme.palette.mode === 'light' ? theme.palette.secondary.light : theme.palette.secondary.dark,
-                        boxShadow: 1,
-                        fontSize: '0.95rem',
+                        fontSize: '1rem',
+                        background: theme.palette.mode === 'light'
+                          ? 'linear-gradient(90deg, #fffbe6 0%, #ffe0b2 100%)'
+                          : 'linear-gradient(90deg, #333 0%, #222 100%)',
+                        color: theme.palette.mode === 'light' ? '#ff9800' : '#fff',
+                        boxShadow: theme.palette.mode === 'light'
+                          ? '0 2px 8px 0 rgba(255,152,0,0.10), 0 1.5px 0.5px 0 #fff inset'
+                          : '0 2px 8px 0 rgba(255,152,0,0.10), 0 1.5px 0.5px 0 #222 inset',
+                        border: theme.palette.mode === 'light' ? '1.5px solid #ff9800' : '1.5px solid #fff',
+                        transition: 'box-shadow 0.2s',
+                        maxWidth: '90%',
+                        overflowWrap: 'break-word',
+                        wordBreak: 'break-word',
+                        textAlign: 'center',
+                        margin: '0 auto',
                       }}
                     >
                       {testimonials[index].score}
-                    </Typography>
+                    </Box>
                   </Box>
                 </Box>
               </FloatingCard>
@@ -289,11 +350,12 @@ const FloatingCard: React.FC<{ children: React.ReactNode; theme: any }> = ({ chi
       <Box
         sx={{
           borderRadius: 4,
-          pt: 5,
+          pt: 7,
           pb: 2,
           px: 2,
           minHeight: 320,
           maxWidth: 380,
+          width: '100%',
           mx: 'auto',
           background: theme.palette.mode === 'light'
             ? 'rgba(255,255,255,0.98)'
@@ -309,6 +371,8 @@ const FloatingCard: React.FC<{ children: React.ReactNode; theme: any }> = ({ chi
             boxShadow: '0 16px 48px 0 rgba(60,60,130,0.18)',
             transform: 'translateY(-8px) scale(1.03)',
           },
+          overflowX: 'hidden',
+          wordBreak: 'break-word',
         }}
       >
         {children}

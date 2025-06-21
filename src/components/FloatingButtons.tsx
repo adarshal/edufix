@@ -41,6 +41,24 @@ const FloatingButtons: React.FC<FloatingButtonsProps> = ({ onDemoClick, onQuesti
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: 0.3 }}
         >
+          <Tooltip title="Join Our Test Series" placement="left">
+            <Fab
+              color="primary"
+              onClick={() => window.open("https://edufix.collegedoors.com/", "_blank")}
+              sx={{
+                ...buttonStyle,
+                background: `linear-gradient(135deg,rgb(36, 93, 184) 0%, #4285F4 100%)`,
+              }}
+            >
+              <Assignment />
+            </Fab>
+          </Tooltip>
+        </motion.div>
+        <motion.div
+          initial={{ opacity: 0, scale: 0.5 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: 0.3 }}
+        >
           <Tooltip title="Schedule a Demo" placement="left">
             <Fab
               color="primary"
@@ -50,7 +68,7 @@ const FloatingButtons: React.FC<FloatingButtonsProps> = ({ onDemoClick, onQuesti
                 background: `linear-gradient(135deg, #4285F4 0%, #34A853 100%)`,
               }}
             >
-              <Assignment />
+              <CalendarMonth />
             </Fab>
           </Tooltip>
         </motion.div>

@@ -140,7 +140,8 @@ const HeroSection: React.FC = () => {
                 maxWidth: '800px',
               }}
             >
-              8–10 Foundation | 11–12 JEE Main & Advanced Coaching
+              8–10<sup>th</sup> Foundation | JEE Main & Advanced | <br />
+              IGCSE & A/As Level  | IBDP  
             </MotionTypography>
 
             <MotionBox

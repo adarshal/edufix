@@ -11,7 +11,21 @@ import TeamGrid from './components/TeamGrid'
 import SuccessStories from './components/SuccessStories'
 import MetricsSection from './components/MetricsSection'
 import Footer from './components/Footer'
+import { BrowserRouter, Routes, Route, useLocation } from 'react-router-dom'
+import FoundationCoursePage from './pages/FoundationCoursePage'
+import JEEPage from './pages/JEEPage'
+import IGCSEPage from './pages/IGCSEPage'
+import IBDPPage from './pages/IBDPPage'
+import AlevelPage from './pages/AlevelPage'
 import './App.css'
+
+function ScrollToTop() {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
 function App(): JSX.Element {
   const [modalOpen, setModalOpen] = useState(false)
@@ -78,34 +92,48 @@ function App(): JSX.Element {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div className="min-h-screen">
-        <Navbar mode={mode} toggleTheme={toggleTheme} />
-        <div className="pt-16">
-          <HeroSection />
-          <AboutSection />
-          <CoursesCarousel />
-          <MetricsSection />
-          <TestimonialsCarousel />
-          <SuccessStories />
-          <TeamGrid />
-          <Footer />
-          <FloatingButtons 
-            onDemoClick={() => {
-              setModalMode('demo');
-              setModalOpen(true);
-            }}
-            onQuestionClick={() => {
-              setModalMode('question');
-              setModalOpen(true);
-            }}
-          />
-          <ScheduleModal 
-            open={modalOpen} 
-            onClose={() => setModalOpen(false)} 
-            mode={modalMode}
-          />
+      <BrowserRouter>
+        <ScrollToTop />
+        <div className="min-h-screen">
+          <Navbar mode={mode} toggleTheme={toggleTheme} />
+          <div className="pt-16">
+            <Routes>
+              <Route path="/" element={
+                <>
+                  <HeroSection />
+                  <AboutSection />
+                  <CoursesCarousel />
+                  <MetricsSection />
+                  <TestimonialsCarousel />
+                  <SuccessStories />
+                  <TeamGrid />
+                  <Footer />
+                  <FloatingButtons 
+                    onDemoClick={() => {
+                      setModalMode('demo');
+                      setModalOpen(true);
+                    }}
+                    onQuestionClick={() => {
+                      setModalMode('question');
+                      setModalOpen(true);
+                    }}
+                  />
+                  <ScheduleModal 
+                    open={modalOpen} 
+                    onClose={() => setModalOpen(false)} 
+                    mode={modalMode}
+                  />
+                </>
+              } />
+              <Route path="/courses/foundation" element={<FoundationCoursePage />} />
+              <Route path="/courses/jee" element={<JEEPage />} />
+              <Route path="/courses/igcse" element={<IGCSEPage />} />
+              <Route path="/courses/ibdp" element={<IBDPPage />} />
+              <Route path="/courses/alevel" element={<AlevelPage />} />
+            </Routes>
+          </div>
         </div>
-      </div>
+      </BrowserRouter>
     </ThemeProvider>
   )
 }
