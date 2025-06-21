@@ -103,19 +103,19 @@ const CoursesCarousel: React.FC = () => {
   useEffect(() => {
     if (isMobile) {
       const interval = setInterval(() => {
-        setCurrentIndex((prev) => (prev === courses.length - 1 ? 0 : prev + 1));
+        setCurrentIndex((prev) => (prev + 1) % courses.length);
       }, 5000);
 
       return () => clearInterval(interval);
     }
-  }, [isMobile]);
+  }, [isMobile, currentIndex]);
 
   const handlePrevious = () => {
-    setCurrentIndex((prev) => (prev === 0 ? courses.length - 1 : prev - 1));
+    setCurrentIndex((prev) => (prev - 1 + courses.length) % courses.length);
   };
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev === courses.length - 1 ? 0 : prev + 1));
+    setCurrentIndex((prev) => (prev + 1) % courses.length);
   };
 
   return (

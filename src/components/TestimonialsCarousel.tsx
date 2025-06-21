@@ -73,7 +73,7 @@ const TestimonialsCarousel: React.FC = () => {
   useEffect(() => {
     const timer = setInterval(() => setIndex((i) => (i + 1) % testimonials.length), 5000);
     return () => clearInterval(timer);
-  }, []);
+  }, [index]);
 
   useEffect(() => {
     setExpanded(false);
@@ -137,7 +137,7 @@ const TestimonialsCarousel: React.FC = () => {
           Testimonials
         </Typography>
 
-        <Box sx={{ position: 'relative', maxWidth: 800, mx: 'auto', overflowX: 'hidden' }}>
+        <Box sx={{ position: 'relative', maxWidth: 800, mx: 'auto', }}>
           <IconButton
             onClick={handlePrevious}
             sx={{
@@ -176,129 +176,131 @@ const TestimonialsCarousel: React.FC = () => {
             <ChevronRight />
           </IconButton>
 
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={index}
-              initial={{ opacity: 0, x: 100 }}
-              animate={{ opacity: 1, x: 0 }}
-              exit={{ opacity: 0, x: -100 }}
-              transition={{ duration: 0.3 }}
-            >
-              <FloatingCard theme={theme}>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: -5 }}>
-                  <Avatar
-                    src={testimonials[index].photo}
-                    alt={testimonials[index].name}
-                    sx={{
-                      width: 64,
-                      height: 64,
-                      border: `3px solid ${theme.palette.primary.main}`,
-                      boxShadow: 2,
-                      mb: 1.5,
-                      background: theme.palette.background.paper,
-                    }}
-                  />
-                </Box>
-                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', zIndex: 1 }}>
-                  <FormatQuote
-                    sx={{
-                      fontSize: 40,
-                      color: theme.palette.primary.main,
-                      opacity: 0.15,
-                      mb: 1,
-                    }}
-                  />
-                  <Rating
-                    value={testimonials[index].rating}
-                    readOnly
-                    sx={{ mb: 1 }}
-                  />
-                  <Typography
-                    variant="body2"
-                    sx={{
-                      fontSize: { xs: '1rem', md: '1.1rem' },
-                      fontStyle: 'italic',
-                      mb: 2,
-                      color: theme.palette.text.secondary,
-                      lineHeight: 1.6,
-                      wordBreak: 'break-word',
-                      whiteSpace: 'pre-line',
-                      transition: 'all 0.2s',
-                      overflowX: 'hidden',
-                      display: 'block',
-                      maxWidth: '100%',
-                    }}
-                  >
-                    {isLong(testimonials[index].quote) && !expanded
-                      ? testimonials[index].quote.slice(0, 180) + '...'
-                      : testimonials[index].quote}
-                  </Typography>
-                  {isLong(testimonials[index].quote) && (
-                    <Button
-                      size="small"
-                      onClick={() => setExpanded((prev) => !prev)}
+          <Box sx={{ overflow: 'hidden' }}>
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={index}
+                initial={{ opacity: 0, x: 100 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -100 }}
+                transition={{ duration: 0.3 }}
+              >
+                <FloatingCard theme={theme}>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: -5 }}>
+                    <Avatar
+                      src={testimonials[index].photo}
+                      alt={testimonials[index].name}
                       sx={{
-                        mb: 1,
-                        fontWeight: 600,
-                        borderRadius: 99,
-                        textTransform: 'none',
+                        width: 64,
+                        height: 64,
+                        border: `3px solid ${theme.palette.primary.main}`,
+                        boxShadow: 2,
+                        mb: 1.5,
+                        background: theme.palette.background.paper,
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+                    <FormatQuote
+                      sx={{
+                        fontSize: 40,
                         color: theme.palette.primary.main,
-                        background: theme.palette.mode === 'light'
-                          ? 'rgba(255, 235, 205, 0.5)'
-                          : 'rgba(255, 235, 205, 0.12)',
-                        '&:hover': {
-                          background: theme.palette.mode === 'light'
-                            ? 'rgba(255, 235, 205, 0.8)'
-                            : 'rgba(255, 235, 205, 0.22)',
-                        },
+                        opacity: 0.15,
+                        mb: 1,
                       }}
-                    >
-                      {expanded ? 'Show less' : 'Show more'}
-                    </Button>
-                  )}
-                  <Typography
-                    variant="h6"
-                    sx={{
-                      fontWeight: 600,
-                      color: theme.palette.text.primary,
-                      mb: 0.5,
-                    }}
-                  >
-                    {testimonials[index].name}
-                  </Typography>
-                  <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0.5 }}>
-                    <Box
+                    />
+                    <Rating
+                      value={testimonials[index].rating}
+                      readOnly
+                      sx={{ mb: 1 }}
+                    />
+                    <Typography
+                      variant="body2"
                       sx={{
-                        display: 'inline-block',
-                        fontWeight: 700,
-                        letterSpacing: 1,
-                        px: 2,
-                        py: 0.5,
-                        borderRadius: 2,
-                        fontSize: '1rem',
-                        background: theme.palette.mode === 'light'
-                          ? 'linear-gradient(90deg, #fffbe6 0%, #ffe0b2 100%)'
-                          : 'linear-gradient(90deg, #333 0%, #222 100%)',
-                        color: theme.palette.mode === 'light' ? '#ff9800' : '#fff',
-                        boxShadow: theme.palette.mode === 'light'
-                          ? '0 2px 8px 0 rgba(255,152,0,0.10), 0 1.5px 0.5px 0 #fff inset'
-                          : '0 2px 8px 0 rgba(255,152,0,0.10), 0 1.5px 0.5px 0 #222 inset',
-                        border: theme.palette.mode === 'light' ? '1.5px solid #ff9800' : '1.5px solid #fff',
-                        transition: 'box-shadow 0.2s',
-                        maxWidth: '90%',
-                        overflowWrap: 'break-word',
+                        fontSize: { xs: '1rem', md: '1.1rem' },
+                        fontStyle: 'italic',
+                        mb: 2,
+                        color: theme.palette.text.secondary,
+                        lineHeight: 1.6,
                         wordBreak: 'break-word',
-                        textAlign: 'center',
-                        margin: '0 auto',
+                        whiteSpace: 'pre-line',
+                        transition: 'all 0.2s',
+                        overflowX: 'hidden',
+                        display: 'block',
+                        maxWidth: '100%',
                       }}
                     >
-                      {testimonials[index].score}
+                      {isLong(testimonials[index].quote) && !expanded
+                        ? testimonials[index].quote.slice(0, 180) + '...'
+                        : testimonials[index].quote}
+                    </Typography>
+                    {isLong(testimonials[index].quote) && (
+                      <Button
+                        size="small"
+                        onClick={() => setExpanded((prev) => !prev)}
+                        sx={{
+                          mb: 1,
+                          fontWeight: 600,
+                          borderRadius: 99,
+                          textTransform: 'none',
+                          color: theme.palette.primary.main,
+                          background: theme.palette.mode === 'light'
+                            ? 'rgba(255, 235, 205, 0.5)'
+                            : 'rgba(255, 235, 205, 0.12)',
+                          '&:hover': {
+                            background: theme.palette.mode === 'light'
+                              ? 'rgba(255, 235, 205, 0.8)'
+                              : 'rgba(255, 235, 205, 0.22)',
+                          },
+                        }}
+                      >
+                        {expanded ? 'Show less' : 'Show more'}
+                      </Button>
+                    )}
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 600,
+                        color: theme.palette.text.primary,
+                        mb: 0.5,
+                      }}
+                    >
+                      {testimonials[index].name}
+                    </Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 0.5 }}>
+                      <Box
+                        sx={{
+                          display: 'inline-block',
+                          fontWeight: 700,
+                          letterSpacing: 1,
+                          px: 2,
+                          py: 0.5,
+                          borderRadius: 2,
+                          fontSize: '1rem',
+                          background: theme.palette.mode === 'light'
+                            ? 'linear-gradient(90deg, #fffbe6 0%, #ffe0b2 100%)'
+                            : 'linear-gradient(90deg, #333 0%, #222 100%)',
+                          color: theme.palette.mode === 'light' ? '#ff9800' : '#fff',
+                          boxShadow: theme.palette.mode === 'light'
+                            ? '0 2px 8px 0 rgba(255,152,0,0.10), 0 1.5px 0.5px 0 #fff inset'
+                            : '0 2px 8px 0 rgba(255,152,0,0.10), 0 1.5px 0.5px 0 #222 inset',
+                          border: theme.palette.mode === 'light' ? '1.5px solid #ff9800' : '1.5px solid #fff',
+                          transition: 'box-shadow 0.2s',
+                          maxWidth: '90%',
+                          overflowWrap: 'break-word',
+                          wordBreak: 'break-word',
+                          textAlign: 'center',
+                          margin: '0 auto',
+                        }}
+                      >
+                        {testimonials[index].score}
+                      </Box>
                     </Box>
                   </Box>
-                </Box>
-              </FloatingCard>
-            </motion.div>
-          </AnimatePresence>
+                </FloatingCard>
+              </motion.div>
+            </AnimatePresence>
+          </Box>
 
           <Box
             sx={{
