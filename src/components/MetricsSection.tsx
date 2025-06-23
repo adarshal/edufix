@@ -12,21 +12,21 @@ import { FaUsers, FaGraduationCap, FaStar, FaBook } from 'react-icons/fa';
 const metrics = [
   {
     icon: FaUsers,
-    value: 2000,
+    value: 70,
     label: "Active Learners",
     suffix: "+",
     color: "#1976d2",
   },
   {
     icon: FaGraduationCap,
-    value: 10,
+    value: 5,
     label: "Years of Academic Excellence",
     suffix: "+",
     color: "#2e7d32",
   },
   {
     icon: FaBook,
-    value: 5,
+    value: 15,
     label: "Courses",
     suffix: "+",
     color: "#9c27b0",

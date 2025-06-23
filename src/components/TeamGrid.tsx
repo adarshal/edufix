@@ -17,41 +17,41 @@ import EmailIcon from "@mui/icons-material/Email";
 
 const teamMembers = [
   {
-    name: "Dr. Rajesh Kumar",
-    role: "Mathematics Expert",
-    bio: "Ph.D. in Mathematics from IIT Delhi with 15+ years of teaching experience. Specializes in Calculus and Algebra.",
-    photo: "https://randomuser.me/api/portraits/men/32.jpg",
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
-    email: "rajesh@edufix.com",
+    name: "Abhishek Doyal (Founder)",
+    role: "Mathematics",
+    bio: "12 years experience. IIT Bombay, Mechanical Engineering.",
+    photo: "/abhishek_doyal_teacher.jpg",
   },
   {
-    name: "Dr. Priya Sharma",
-    role: "Physics Expert",
-    bio: "Ph.D. in Physics from IISc Bangalore. Former research scientist with expertise in Mechanics and Electromagnetism.",
-    photo: "https://randomuser.me/api/portraits/women/44.jpg",
-    linkedin: "https://linkedin.com",
-    twitter: "https://twitter.com",
-    email: "priya@edufix.com",
+    name: "Abhimanyu Pundeer (Cofounder)",
+    role: "Physics",
+    bio: "8 years experience. Civil Engineering, IIT Bombay.",
+    photo: "/Abhimanyu_Pundeer_teacher.jpg",
   },
-  // {
-  //   name: "Dr. Amit Patel",
-  //   role: "Chemistry Expert",
-  //   bio: "Ph.D. in Chemistry from IIT Bombay. Specializes in Organic Chemistry and Chemical Kinetics.",
-  //   photo: "https://randomuser.me/api/portraits/men/75.jpg",
-  //   linkedin: "https://linkedin.com",
-  //   twitter: "https://twitter.com",
-  //   email: "amit@edufix.com",
-  // },
-  // {
-  //   name: "Dr. Neha Gupta",
-  //   role: "Biology Expert",
-  //   bio: "Ph.D. in Biology from IISc Bangalore. Expert in Human Physiology and Genetics.",
-  //   photo: "https://randomuser.me/api/portraits/women/68.jpg",
-  //   linkedin: "https://linkedin.com",
-  //   twitter: "https://twitter.com",
-  //   email: "neha@edufix.com",
-  // },
+  {
+    name: "Vikas Doyal",
+    role: "Chemistry",
+    bio: "10 years experience. Civil Engineering, IIT Bombay.",
+    photo: "/vikas_dyal_teacher.jpg",
+  },
+  {
+    name: "Varsha Suthar",
+    role: "Biology",
+    bio: "2 years experience. MSc in Botany, JNVU.",
+    photo: "/Varsha_suthar_teacher.jpg",
+  },
+  {
+    name: "Ramesh Kumar",
+    role: "Mathematics",
+    bio: "2 years experience. B.Tech IIT Guwahati, M.Tech IIT Bombay.",
+    photo: "/Ramesh_kumar_teacher.jpg",
+  },
+  {
+    name: "Himanshu Mishra",
+    role: "Chemistry",
+    bio: "7 years experience. Mechanical Engineering, NIT Nagpur.",
+    photo: "/himanshu_teacher.jpg",
+  },
 ];
 
 const floatAnim = {
@@ -187,17 +187,11 @@ const TeamGrid: React.FC = () => {
                 <Typography
                   variant="body2"
                   color={theme.palette.text.secondary}
-                  sx={{
-                    mb: 2,
-                    display: '-webkit-box',
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: 'vertical',
-                    overflow: 'hidden',
-                  }}
+                  sx={{ mb: 2, display: 'block', whiteSpace: 'pre-line' }}
                 >
-                  {member.bio}
+                  {member.bio.split('. ').map((part, idx, arr) => idx === 0 && arr.length > 1 ? part + '.' + '\n' : part).join(' ')}
                 </Typography>
-                <Box
+                {/* <Box
                   sx={{
                     display: 'flex',
                     gap: 1,
@@ -229,7 +223,7 @@ const TeamGrid: React.FC = () => {
                   >
                     <EmailIcon />
                   </IconButton>
-                </Box>
+                </Box> */}
               </CardContent>
             </FloatingCard>
           ))}

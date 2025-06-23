@@ -19,7 +19,7 @@ import Button from '@mui/material/Button';
 const successStories = [
   {
     name: "Aditya Gokhale",
-    achievement: "JEE Mains 99.84%ile, JEE Advanced AIR 1284 (2025)",
+    achievement: "JEE Advanced AIR 1284 (2025)",
     story: "I joined Edufix Career Academy for my JEE preparation. All the teachers supported and guided me at every step of my journey. My doubts were always resolved, and the concepts were explained clearly and thoroughly. I would like to thank my teachers and my parents for choosing Edufix.",
     photo: "/Aditya_Gokhale.jpeg",
     course: "JEE Main & Advanced",
@@ -27,7 +27,7 @@ const successStories = [
   },
   {
     name: "Harshil Agarwal",
-    achievement: "JEE Advanced Rank 2224 (99.8%ile), IIT Bombay, ESADE",
+    achievement: "JEE Advanced 2224 (99.8%ile), IIT Bombay, ESADE",
     story: "Studying Mathematics and Chemistry at Edufix played a pivotal role in my JEE preparation journey. Abhishek sir's and Vikas sir's deep subject knowledge and proper guidance helped me strengthen my fundamentals and develop the problem-solving mindset needed to crack JEE. I'll always be grateful for the clarity, discipline and confidence the learning environment at Edufix instilled in me.",
     photo: "/Harshil_Agarwal.jpeg",
     course: "JEE Main & Advanced",
@@ -35,7 +35,7 @@ const successStories = [
   },
   {
     name: "Murtuza Shaikh",
-    achievement: "JEE Mains 99.1%ile, JEE Advanced AIR 9000, IIIT Gwalior",
+    achievement: "JEE Mains 99.1%ile, IIIT Gwalior",
     story: "I joined Edufix Career Academy for Mathematics coaching for JEE 2023. The personalized guidance by Abhishek Sir helped me focus on weak areas, build strong problem-solving skills, and improve through mock test analysis. Grateful for the support and experience at Edufix!",
     photo: "/murtuza_shaikh.jpeg",
     course: "JEE Main & Advanced",
@@ -67,7 +67,7 @@ const successStories = [
   },
   {
     name: "Daksh",
-    achievement: "IBDP Year 1, One World International School Singapore",
+    achievement: "IBDP Year 1, OWIS Singapore",
     story: "Edufix Career Academy has played a significant role in shaping my academic journey. The tutors were not only highly knowledgeable in their subjects but also incredibly supportive throughout the entire process. Their guidance gave me the confidence to pursue my goals and achieve targets I once thought were out of reach.",
     photo: "/Daksh.jpeg",
     course: "IBDP",
@@ -75,7 +75,7 @@ const successStories = [
   },
   {
     name: "Sanyam Bhansali",
-    achievement: "Consistently scored 7s in IBDP, Oberoi International School OGC",
+    achievement: "7s in IBDP, Oberoi International School OGC",
     story: "As an 11th grader going into 12th grade at Oberoi International School (OGC), pursuing the IB Diploma Programme, Edufix has played a major role in my academic success. With their expert guidance, I've consistently scored 7s in my subjects and topped my end-of-year exams. The teaching is concept-focused and incredibly effective—each topic is taught with clarity, supported by plenty of practice resources and help outside class whenever needed. My understanding has deepened, and my confidence has grown thanks to Edufix.",
     photo: "/Sanyam_Bhansali.jpeg",
     course: "IBDP",
@@ -106,18 +106,8 @@ const SuccessStories: React.FC = () => {
   const y = useTransform(scrollYProgress, [0, 1], [0, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
-  // Modal state
-  const [open, setOpen] = React.useState(false);
-  const [selectedStory, setSelectedStory] = React.useState<any>(null);
-
-  const handleOpen = (story: any) => {
-    setSelectedStory(story);
-    setOpen(true);
-  };
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedStory(null);
-  };
+  // Only one card can be flipped at a time
+  const [flippedCardIndex, setFlippedCardIndex] = React.useState<number | null>(null);
 
   return (
     <Box
@@ -198,14 +188,72 @@ const SuccessStories: React.FC = () => {
               md: 'repeat(3, 1fr)',
             },
             gap: 4,
+            rowGap: { xs: 6, md: 8 }, // Increase row gap
           }}
         >
           {successStories.map((story, index) => (
-            <FloatingCard key={story.name} index={index} theme={theme}>
+            <FlippableCard
+              key={story.name}
+              story={story}
+              theme={theme}
+              flipped={flippedCardIndex === index}
+              onFlip={() => setFlippedCardIndex(index)}
+              onUnflip={() => setFlippedCardIndex(null)}
+              index={index}
+            />
+          ))}
+        </Box>
+      </Container>
+    </Box>
+  );
+};
+
+const FlippableCard: React.FC<{
+  story: typeof successStories[0];
+  theme: any;
+  flipped: boolean;
+  onFlip: () => void;
+  onUnflip: () => void;
+  index: number;
+}> = ({ story, theme, flipped, onFlip, onUnflip }) => {
+  const [expanded, setExpanded] = React.useState(false);
+  const isLong = story.story.length > 150;
+  const displayText = expanded ? story.story : (isLong ? story.story.slice(0, 150) + '...' : story.story);
+
+  // Overlay for expanded testimonial
+  const handleCloseOverlay = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      setExpanded(false);
+    }
+  };
+
+  return (
+    <>
+      <Box sx={{ perspective: 1200, zIndex: expanded ? 1301 : 'auto', position: expanded ? 'relative' : 'static' }}>
+        <motion.div
+          style={{
+            position: 'relative',
+            width: expanded ? 420 : 340,
+            height: expanded ? 420 : 340,
+            transformStyle: 'preserve-3d',
+            transition: 'transform 0.7s cubic-bezier(0.4,0.2,0.2,1), width 0.3s, height 0.3s',
+            transform: flipped ? 'rotateY(180deg)' : 'rotateY(0deg)',
+            zIndex: expanded ? 1302 : 1,
+          }}
+        >
+          {/* Front Side */}
+          <Box
+            sx={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              backfaceVisibility: 'hidden',
+              zIndex: 2,
+            }}
+          >
+            <FloatingCard index={0} theme={theme}>
               <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', mt: -5 }}>
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                >
+                <motion.div whileHover={{ scale: 1.1 }}>
                   <Avatar
                     src={story.photo}
                     alt={story.name}
@@ -220,9 +268,7 @@ const SuccessStories: React.FC = () => {
                   />
                 </motion.div>
                 <Box sx={{ display: 'flex', gap: 1, mb: 1, alignItems: 'center', justifyContent: 'center', flexWrap: 'wrap' }}>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                  >
+                  <motion.div whileHover={{ scale: 1.05 }}>
                     <Box
                       component="span"
                       sx={{
@@ -245,10 +291,7 @@ const SuccessStories: React.FC = () => {
                       {story.course}
                     </Box>
                   </motion.div>
-                  <motion.div
-                    whileHover={{ scale: 1.05 }}
-                    transition={{ type: "spring", stiffness: 400 }}
-                  >
+                  <motion.div whileHover={{ scale: 1.05 }} transition={{ type: "spring", stiffness: 400 }}>
                     <Box
                       component="span"
                       sx={{
@@ -290,30 +333,120 @@ const SuccessStories: React.FC = () => {
                   variant="outlined"
                   size="small"
                   sx={{ mt: 2, borderRadius: 99, fontWeight: 600 }}
-                  onClick={() => handleOpen(story)}
+                  onClick={flipped ? undefined : onFlip}
+                  disabled={flipped}
                 >
                   See what they say about Edufix
                 </Button>
               </CardContent>
             </FloatingCard>
-          ))}
+          </Box>
+          {/* Back Side */}
+          <Box
+            sx={{
+              position: 'absolute',
+              width: '100%',
+              height: '100%',
+              backfaceVisibility: 'hidden',
+              transform: 'rotateY(180deg)',
+              zIndex: 3,
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+            }}
+          >
+            <FloatingCard index={0} theme={theme}>
+              <CardContent sx={{ flexGrow: 1, p: 2, textAlign: 'center', display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center' }}>
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
+                  {story.name}'s Testimonial
+                </Typography>
+                <Typography variant="body1" sx={{ fontStyle: 'italic', lineHeight: 1.7, mb: 2 }}>
+                  "{displayText}"
+                </Typography>
+                {isLong && (
+                  <Button size="small" onClick={() => setExpanded(e => !e)} sx={{ mb: 1, borderRadius: 99 }}>
+                    {expanded ? 'See less' : 'See more'}
+                  </Button>
+                )}
+                <Button onClick={onUnflip} color="primary" variant="contained" sx={{ borderRadius: 99 }}>
+                  Back
+                </Button>
+              </CardContent>
+            </FloatingCard>
+          </Box>
+        </motion.div>
+      </Box>
+      {/* Overlay for expanded testimonial */}
+      {expanded && (
+        <Box
+          onClick={handleCloseOverlay}
+          sx={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            bgcolor: 'rgba(0,0,0,0.45)',
+            zIndex: 2000,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}
+        >
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            style={{ width: 700, maxWidth: '98vw', zIndex: 2001 }}
+          >
+            <Card sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: 'stretch', p: 0, minHeight: 260, maxHeight: { xs: '90vh', sm: 420 } }}>
+              <Box sx={{
+                display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+                bgcolor: 'background.paper',
+                p: 3,
+                minWidth: { xs: '100%', sm: 220 },
+                borderTopLeftRadius: 8,
+                borderBottomLeftRadius: 8,
+                borderTopRightRadius: { xs: 8, sm: 0 },
+                borderBottomRightRadius: { xs: 8, sm: 0 },
+                borderBottomLeftRadius: { xs: 0, sm: 8 },
+                borderTopLeftRadius: { xs: 8, sm: 8 },
+              }}>
+                <Avatar
+                  src={story.photo}
+                  alt={story.name}
+                  sx={{ width: 80, height: 80, mb: 2, border: `3px solid ${theme.palette.primary.main}` }}
+                />
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, textAlign: 'center' }}>{story.name}</Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', mb: 1 }}>{story.course} | {story.year}</Typography>
+              </Box>
+              <CardContent sx={{
+                flex: 1,
+                p: { xs: 2, sm: 4 },
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                minWidth: 0,
+                gap: { xs: 1, sm: 2 },
+                overflowY: 'auto',
+                maxHeight: { xs: '50vh', sm: 'none' },
+              }}>
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: { xs: 1, sm: 2 }, textAlign: 'left' }}>{story.name}'s Testimonial</Typography>
+                <Typography variant="body1" sx={{ fontStyle: 'italic', lineHeight: 1.7, mb: { xs: 1, sm: 2 }, textAlign: 'left' }}>
+                  "{story.story}"
+                </Typography>
+                <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' } }}>
+                  <Button onClick={() => setExpanded(false)} color="primary" variant="contained" sx={{ borderRadius: 99, mt: 1, minWidth: 100 }}>
+                    Close
+                  </Button>
+                </Box>
+              </CardContent>
+            </Card>
+          </motion.div>
         </Box>
-      </Container>
-      {/* Testimonial Modal */}
-      <Dialog open={open} onClose={handleClose} maxWidth="sm" fullWidth>
-        <DialogTitle sx={{ fontWeight: 700 }}>{selectedStory?.name}'s Testimonial</DialogTitle>
-        <DialogContent>
-          <Typography variant="body1" sx={{ fontStyle: 'italic', lineHeight: 1.7 }}>
-            "{selectedStory?.story}"
-          </Typography>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary" variant="contained" sx={{ borderRadius: 99 }}>
-            Close
-          </Button>
-        </DialogActions>
-      </Dialog>
-    </Box>
+      )}
+    </>
   );
 };
 

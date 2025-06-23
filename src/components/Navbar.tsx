@@ -88,8 +88,7 @@ const Navbar: React.FC<{ mode: 'light' | 'dark'; toggleTheme: () => void }> = ({
           }}
         >
           <img src="edufixvector.svg" alt="" 
-          style={{ width: '1.5rem', height: '1.5rem',
-            backgroundColor: '#1976d2',
+          style={{ width: '1.7rem', height: '1.5rem',
            }} /> Edufix
 
         </Typography>
