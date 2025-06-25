@@ -87,7 +87,7 @@ const Navbar: React.FC<{ mode: 'light' | 'dark'; toggleTheme: () => void }> = ({
             fontWeight: 'bold',
           }}
         >
-          <img src="edufixvector.svg" alt="" 
+          <img src="edufix_logo.svg" alt="" 
           style={{ width: '1.7rem', height: '1.5rem',
            }} /> Edufix
 

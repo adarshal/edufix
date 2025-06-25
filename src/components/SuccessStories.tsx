@@ -406,8 +406,6 @@ const FlippableCard: React.FC<{
                 bgcolor: 'background.paper',
                 p: 3,
                 minWidth: { xs: '100%', sm: 220 },
-                borderTopLeftRadius: 8,
-                borderBottomLeftRadius: 8,
                 borderTopRightRadius: { xs: 8, sm: 0 },
                 borderBottomRightRadius: { xs: 8, sm: 0 },
                 borderBottomLeftRadius: { xs: 0, sm: 8 },

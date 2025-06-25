@@ -1,6 +1,7 @@
 {
   "name": "edufix",
   "private": true,
+  "homepage":"https://brown-kingfisher-629030.hostingersite.com",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
