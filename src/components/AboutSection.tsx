@@ -16,33 +16,55 @@ import {
   FaUserGraduate,
 } from "react-icons/fa";
 import { motion } from "framer-motion";
+import {
+  School,
+  WorkspacePremium,
+  Groups,
+  AutoGraph,
+  SupportAgent,
+  Lightbulb,
+  Star,
+  Leaderboard,
+  Quiz,
+} from '@mui/icons-material';
 
 const MotionPaper = motion(Paper);
 
 const features = [
   {
-    icon: FaChalkboardTeacher,
-    title: "Interactive Classes",
-    desc: "Engaging sessions with real-time doubt clearing.",
-    color: "#1976d2",
-  },
-  {
-    icon: FaUserGraduate,
-    title: "Custom Study Plans",
-    desc: "Personalized learning paths for every student.",
-    color: "#2e7d32",
-  },
-  {
-    icon: FaRegLightbulb,
+    icon: WorkspacePremium,
     title: "Expert Faculty",
     desc: "Learn from experienced educators and IIT alumni.",
+    color: "#1976d2",
+    bg: 'linear-gradient(135deg, #e3f0ff 0%, #b6cfff 100%)',
+  },
+  {
+    icon: Groups,
+    title: "Small Batches",
+    desc: "Personalized attention in micro-batch classes.",
+    color: "#2e7d32",
+    bg: 'linear-gradient(135deg, #e0ffe3 0%, #b2f7c1 100%)',
+  },
+  {
+    icon: Lightbulb,
+    title: "Concept Clarity",
+    desc: "Focus on deep understanding, not rote learning.",
     color: "#ed6c02",
+    bg: 'linear-gradient(135deg, #fffbe3 0%, #ffe7b2 100%)',
+  },
+  {
+    icon: Leaderboard,
+    title: "Result Driven",
+    desc: "Track record of top ranks and IIT selections.",
+    color: "#9c27b0",
+    bg: 'linear-gradient(135deg, #f3e3ff 0%, #e0b2ff 100%)',
   },
   {
     icon: FaPencilRuler,
     title: "Test Series",
-    desc: "Mock Tests Series with performance feedback.",
+    desc: "Mock Test Series with performance feedback.",
     color: "#ed6c02",
+    bg: 'linear-gradient(135deg, #fffbe3 0%, #ffe7b2 100%)',
   },
 ];
 
@@ -157,10 +179,17 @@ const AboutSection: React.FC = () => {
                       alignItems: "center",
                       justifyContent: "center",
                       mb: 2,
-                      background: `${feature.color}15`,
+                      background: feature.bg,
+                      boxShadow: `0 4px 24px 0 ${feature.color}33`,
                       position: "relative",
                       overflow: "hidden",
-                      "&::before": {
+                      animation: 'pulse 2.5s infinite',
+                      '@keyframes pulse': {
+                        '0%': { boxShadow: `0 0 0 0 ${feature.color}33` },
+                        '70%': { boxShadow: `0 0 0 12px transparent` },
+                        '100%': { boxShadow: `0 0 0 0 ${feature.color}33` },
+                      },
+                      '&::before': {
                         content: '""',
                         position: "absolute",
                         top: 0,
@@ -170,11 +199,11 @@ const AboutSection: React.FC = () => {
                         background:
                           "linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)",
                         animation: "glossy 3s infinite",
-                        "@keyframes glossy": {
-                          "0%": {
+                        '@keyframes glossy': {
+                          '0%': {
                             left: "-100%",
                           },
-                          "100%": {
+                          '100%': {
                             left: "200%",
                           },
                         },
@@ -183,8 +212,9 @@ const AboutSection: React.FC = () => {
                   >
                     <feature.icon
                       style={{
-                        fontSize: "2rem",
+                        fontSize: "2.3rem",
                         color: feature.color,
+                        filter: 'drop-shadow(0 2px 8px rgba(0,0,0,0.10))',
                       }}
                     />
                   </Box>
