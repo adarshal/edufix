@@ -104,9 +104,9 @@ function App(): JSX.Element {
                   <AboutSection />
                   <CoursesCarousel />
                   <MetricsSection />
-                  <TestimonialsCarousel />
-                  <SuccessStories />
                   <TeamGrid />
+                  <SuccessStories />
+                  <TestimonialsCarousel />
                   <Footer />
                   <FloatingButtons 
                     onDemoClick={() => {
