@@ -7,49 +7,50 @@ import {
   CardContent,
   Avatar,
   useTheme,
-  Chip,
-  IconButton,
 } from "@mui/material";
 import { motion, useAnimation } from "framer-motion";
-import LinkedInIcon from "@mui/icons-material/LinkedIn";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import EmailIcon from "@mui/icons-material/Email";
 
 const teamMembers = [
   {
     name: "Abhishek Doyal (Founder)",
     role: "Mathematics",
-    bio: "12 years experience. IIT Bombay, Mechanical Engineering.",
+    experience: "Exp:12 years",
+    qualification: "IIT Bombay",
     photo: "/abhishek_doyal_teacher.jpg",
   },
   {
-    name: "Abhimanyu Pundeer (Cofounder)",
+    name: "Abhimanyu Pundeer (Co-founder)",
     role: "Physics",
-    bio: "8 years experience. Civil Engineering, IIT Bombay.",
+    experience: "Exp:8 years",
+    qualification: "IIT Bombay.",
     photo: "/Abhimanyu_Pundeer_teacher.jpg",
   },
   {
     name: "Vikas Doyal",
     role: "Chemistry",
-    bio: "10 years experience. Civil Engineering, IIT Bombay.",
+    experience: "Exp:10 years",
+    qualification: "IIT Bombay.",
     photo: "/vikas_dyal_teacher.jpg",
   },
   {
     name: "Varsha Suthar",
     role: "Biology",
-    bio: "2 years experience. MSc in Botany, JNVU.",
+    experience: "Exp:2 years",
+    qualification: "MSc, JNVU.",
     photo: "/Varsha_suthar_teacher.jpg",
   },
   {
     name: "Ramesh Kumar",
     role: "Mathematics",
-    bio: "2 years experience. B.Tech IIT Guwahati, M.Tech IIT Bombay.",
+    experience: "Exp:2 years",
+    qualification: "B.Tech IIT Guwahati, M.Tech IIT Bombay.",
     photo: "/Ramesh_kumar_teacher.jpg",
   },
   {
     name: "Himanshu Mishra",
     role: "Chemistry",
-    bio: "7 years experience. Mechanical Engineering, NIT Nagpur.",
+    experience: "Exp:7 years",
+    qualification: "NIT Nagpur.",
     photo: "/himanshu_teacher.jpg",
   },
 ];
@@ -184,12 +185,10 @@ const TeamGrid: React.FC = () => {
                  }}>
                   {member.name}
                 </Typography>
-                <Typography
-                  variant="body2"
-                  color={theme.palette.text.secondary}
-                  sx={{ mb: 2, display: 'block', whiteSpace: 'pre-line' }}
-                >
-                  {member.bio.split('. ').map((part, idx, arr) => idx === 0 && arr.length > 1 ? part + '.' + '\n' : part).join(' ')}
+                <Typography variant="body2" color={theme.palette.text.secondary} sx={{ mb: 2, display: 'block', whiteSpace: 'pre-line' }}>
+                  {member.experience}
+                  {"\n"}
+                  {member.qualification}
                 </Typography>
                 {/* <Box
                   sx={{

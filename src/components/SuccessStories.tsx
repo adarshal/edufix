@@ -7,13 +7,9 @@ import {
   CardContent,
   Avatar,
   useTheme,
-  Chip,
 } from "@mui/material";
-import { motion, useAnimation, useMotionValue, useTransform, useSpring, useScroll } from "framer-motion";
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import DialogActions from '@mui/material/DialogActions';
+import { motion, useAnimation, useMotionValue, useTransform, useScroll } from "framer-motion";
+
 import Button from '@mui/material/Button';
 
 const successStories = [
@@ -21,25 +17,28 @@ const successStories = [
     name: "Aditya Gokhale",
     achievement: "JEE Advanced AIR 1284 (2025)",
     story: "I joined Edufix Career Academy for my JEE preparation. All the teachers supported and guided me at every step of my journey. My doubts were always resolved, and the concepts were explained clearly and thoroughly. I would like to thank my teachers and my parents for choosing Edufix.",
-    photo: "/Aditya_Gokhale.jpeg",
+    photo: "/Aditya_Gokhale2.jpeg",
     course: "JEE Main & Advanced",
     year: "2025",
+    photoYOffset: 0,
   },
   {
     name: "Harshil Agarwal",
-    achievement: "JEE Advanced 2224 (99.8%ile), IIT Bombay, ESADE",
+    achievement: "JEE Advanced (99.8%ile), IIT Bombay, ESADE",
     story: "Studying Mathematics and Chemistry at Edufix played a pivotal role in my JEE preparation journey. Abhishek sir's and Vikas sir's deep subject knowledge and proper guidance helped me strengthen my fundamentals and develop the problem-solving mindset needed to crack JEE. I'll always be grateful for the clarity, discipline and confidence the learning environment at Edufix instilled in me.",
     photo: "/Harshil_Agarwal.jpeg",
     course: "JEE Main & Advanced",
     year: "2022",
+    photoYOffset: 0,
   },
   {
     name: "Murtuza Shaikh",
-    achievement: "JEE Mains 99.1%ile, IIIT Gwalior",
+    achievement: "JEE Mains (99.1%ile), IIIT Gwalior",
     story: "I joined Edufix Career Academy for Mathematics coaching for JEE 2023. The personalized guidance by Abhishek Sir helped me focus on weak areas, build strong problem-solving skills, and improve through mock test analysis. Grateful for the support and experience at Edufix!",
     photo: "/murtuza_shaikh.jpeg",
     course: "JEE Main & Advanced",
     year: "2023",
+    photoYOffset: 0,
   },
   {
     name: "Shlok Mulye",
@@ -48,6 +47,7 @@ const successStories = [
     photo: "/Shlok_Mulye.jpeg",
     course: "JEE Main & Advanced",
     year: "2020",
+    photoYOffset: 0,
   },
   {
     name: "Sneharghya Ghosh",
@@ -56,30 +56,34 @@ const successStories = [
     photo: "/Sneharghya_ghosh.jpeg",
     course: "JEE Main & Advanced",
     year: "2018",
+    photoYOffset: 0,
   },
   {
     name: "Kushal Trivedi",
-    achievement: "IIIT Gwalior, JEE Mains 98.98%ile (99% in Maths)",
+    achievement: "IIIT Gwalior, JEE Mains (98.98%ile, 99% in Maths)",
     story: "I joined Abhishek sir's classes for Maths (/Edufix) in 2022 (12th) for JEE Mains and Advanced. His guidance helped me to deepen and sharpen my understanding about Maths along with intensive practice, paper solving and doubt clearance as well. His personal attention to us added to the good experience as well.",
     photo: "/Kushal_Trivedi.jpeg",
     course: "JEE Main & Advanced",
     year: "2023",
+    photoYOffset: 0,
   },
   {
     name: "Daksh",
-    achievement: "IBDP Year 1, OWIS Singapore",
+    achievement: "IBDP , OWIS Singapore",
     story: "Edufix Career Academy has played a significant role in shaping my academic journey. The tutors were not only highly knowledgeable in their subjects but also incredibly supportive throughout the entire process. Their guidance gave me the confidence to pursue my goals and achieve targets I once thought were out of reach.",
     photo: "/Daksh.jpeg",
     course: "IBDP",
     year: "2026",
+    photoYOffset: 0,
   },
   {
     name: "Sanyam Bhansali",
-    achievement: "7s in IBDP, Oberoi International School OGC",
+    achievement: "IBDP, Oberoi International School OGC",
     story: "As an 11th grader going into 12th grade at Oberoi International School (OGC), pursuing the IB Diploma Programme, Edufix has played a major role in my academic success. With their expert guidance, I've consistently scored 7s in my subjects and topped my end-of-year exams. The teaching is concept-focused and incredibly effective—each topic is taught with clarity, supported by plenty of practice resources and help outside class whenever needed. My understanding has deepened, and my confidence has grown thanks to Edufix.",
     photo: "/Sanyam_Bhansali.jpeg",
     course: "IBDP",
     year: "2025",
+    photoYOffset: 0,
   },
 ];
 
@@ -264,6 +268,7 @@ const FlippableCard: React.FC<{
                       boxShadow: 2,
                       mb: 1.5,
                       background: theme.palette.background.paper,
+                      transform: `translateY(${story.photoYOffset || 0}px)`
                     }}
                   />
                 </motion.div>
@@ -414,7 +419,9 @@ const FlippableCard: React.FC<{
                 <Avatar
                   src={story.photo}
                   alt={story.name}
-                  sx={{ width: 80, height: 80, mb: 2, border: `3px solid ${theme.palette.primary.main}` }}
+                  sx={{ width: 80, height: 80, mb: 2,
+                     border: `3px solid ${theme.palette.primary.main}`, 
+                     transform: `translateY(${story.photoYOffset || 0}px)` }}
                 />
                 <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, textAlign: 'center' }}>{story.name}</Typography>
                 <Typography variant="body2" color="text.secondary" sx={{ textAlign: 'center', mb: 1 }}>{story.course} | {story.year}</Typography>

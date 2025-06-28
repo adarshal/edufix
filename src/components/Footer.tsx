@@ -15,6 +15,7 @@ import {
   Instagram as InstagramIcon,
   LinkedIn as LinkedInIcon,
 } from "@mui/icons-material";
+import { FaAddressCard } from "react-icons/fa";
 
 const Footer: React.FC = () => {
   const theme = useTheme();
@@ -108,10 +109,27 @@ const Footer: React.FC = () => {
                 </Link>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <EmailIcon color="primary" />
-                <Link href="mailto:abhishekdoyal2010@gmail.com" color="inherit" underline="hover">
-                  abhishekdoyal2010@gmail.com
+                <PhoneIcon color="main" />
+                <Link href="tel:+919588261726" color="inherit" underline="hover">
+                  +91 84509 32351
                 </Link>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <EmailIcon color="primary" />
+                <Link href="mailto:edufixcareeracademy@gmail.com" color="inherit" underline="hover">
+                  edufixcareeracademy@gmail.com
+                </Link>
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                <EmailIcon color="main" />
+                <Link href="mailto:info@edufixcareeracademy.com" color="inherit" underline="hover">
+                  info@edufixcareeracademy.com
+                </Link>
+              </Box>
+              
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                
+                216, Lake Primeros shopping complex, Chandivali 400072
               </Box>
             </Box>
           </Box>

@@ -20,8 +20,8 @@ const metrics = [
   {
     icon: FaGraduationCap,
     value: 5,
-    label: "Years of Academic Excellence",
-    suffix: "+",
+    label: "Proven Excellence",
+    suffix: "+Yr",
     color: "#2e7d32",
   },
   {
@@ -34,7 +34,7 @@ const metrics = [
   {
     icon: FaStar,
     value: 6,
-    label: "Workshops on Study Skills",
+    label: "Workshops",
     suffix: "+",
     color: "#ed6c02",
   },

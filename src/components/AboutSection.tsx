@@ -119,7 +119,11 @@ const AboutSection: React.FC = () => {
                 fontSize: { xs: "2rem", md: "2.5rem" },
                 fontWeight: 700,
                 mb: 2,
-                color: theme.palette.text.primary,
+                background: `linear-gradient(90deg, #1976d2 0%, #9c27b0 100%)`,
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                textFillColor: 'transparent',
               }}
             >
               Why EduFix Career Academy?

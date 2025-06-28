@@ -26,9 +26,9 @@ const Navbar: React.FC<{ mode: 'light' | 'dark'; toggleTheme: () => void }> = ({
 
   const menuItems = [
     { text: 'About', href: '#about' },
-    { text: 'Courses', href: '#courses' },
-    { text: 'Testimonials', href: '#testimonials' },
+    { text: 'Courses', href: '#courses' },    
     { text: 'Team', href: '#team' },
+    { text: 'Testimonials', href: '#testimonials' },
     { text: 'Test Series', href: 'https://edufix.collegedoors.com/' },
   ];
 
@@ -87,7 +87,7 @@ const Navbar: React.FC<{ mode: 'light' | 'dark'; toggleTheme: () => void }> = ({
             fontWeight: 'bold',
           }}
         >
-          <img src="edufix_logo.svg" alt="" 
+          <img src="logo_lat.svg" alt="" 
           style={{ width: '1.7rem', height: '1.5rem',
            }} /> Edufix
 
