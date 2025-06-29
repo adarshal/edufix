@@ -14,6 +14,7 @@ import {
   Facebook as FacebookIcon,
   Instagram as InstagramIcon,
   LinkedIn as LinkedInIcon,
+  LocationPin,
 } from "@mui/icons-material";
 import { FaAddressCard } from "react-icons/fa";
 
@@ -128,8 +129,10 @@ const Footer: React.FC = () => {
               </Box>
               
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                
-                216, Lake Primeros shopping complex, Chandivali 400072
+                <LocationPin color="primary" />
+              <Link href="https://maps.app.goo.gl/FXPBdd79bnveH7Pg8" color="inherit" underline="hover" target='_blank'>               
+                216, Lake Primrose shopping complex, Chandivali 400072
+                </Link>
               </Box>
             </Box>
           </Box>
