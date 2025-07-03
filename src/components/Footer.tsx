@@ -112,7 +112,7 @@ const Footer: React.FC = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                 <PhoneIcon color="main" />
                 <Link href="tel:+919588261726" color="inherit" underline="hover">
-                  +91 84509 32351
+                  +91 84509 42351
                 </Link>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
